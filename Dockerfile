@@ -1,4 +1,4 @@
-FROM golang:1.12-alpine AS build-env
+FROM golang:1.12-alpine
 
 ENV GO111MODULE=on
 
@@ -10,9 +10,8 @@ COPY . .
 RUN go mod download
 RUN go build -ldflags="-w -s" -o ./build/webserver .
 
-FROM alpine:3.11
 
 WORKDIR /app
-COPY --from=build-env /go/src/github.com/container-examples/golang-webserver/build/webserver /app/webserver
+COPY /go/src/github.com/container-examples/golang-webserver/build/webserver /app/webserver
 
 ENTRYPOINT [ "/app/webserver" ]
