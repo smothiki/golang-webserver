@@ -8,10 +8,7 @@ WORKDIR ${GOPATH}/src/github.com/container-examples/golang-webserver/
 COPY . .
 
 RUN go mod download
-RUN go build -ldflags="-w -s" -o ./build/webserver .
+RUN go build -ldflags="-w -s" -o /app/webserver .
 
-
-WORKDIR /app
-COPY /go/src/github.com/container-examples/golang-webserver/build/webserver /app/webserver
 
 ENTRYPOINT [ "/app/webserver" ]
